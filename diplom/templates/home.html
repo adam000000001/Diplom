@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5">Пакеты услуг нашего клуба</h1>
+    
+    <!-- Проверка наличия пакетов -->
+    {% if packages %}
+        <!-- Популярные пакеты -->
+        {% if popular_packages %}
+        <h2 class="mb-4">Популярные пакеты</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+            {% for package in popular_packages %}
+            <!-- Карточка пакета -->
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Все пакеты -->
+        <h2 class="mb-4">Все пакеты</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for package in packages %}
+            <!-- Карточка пакета -->
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">Пакеты услуг пока недоступны. Зайдите позже.</div>
+    {% endif %}
+</div>
+{% endblock %}
