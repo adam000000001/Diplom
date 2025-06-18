@@ -17,6 +17,10 @@ from .models import Booking, Computer
 import datetime
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+# tournament
+
+from .models import Tournament, TournamentRegistration
+
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     
@@ -92,3 +96,27 @@ class BookingForm(forms.ModelForm):
             cleaned_data['end_time'] = end_time
         
         return cleaned_data
+    
+    #tournament
+
+class TournamentForm(forms.ModelForm):
+    class Meta:
+        model = Tournament
+        fields = '__all__'
+        widgets = {
+            'start_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+
+        if start_date and end_date and start_date >= end_date:
+            raise ValidationError("Дата окончания должна быть позже даты начала")
+
+class TournamentRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = TournamentRegistration
+        fields = []

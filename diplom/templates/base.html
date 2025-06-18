@@ -19,6 +19,7 @@
   {% endif %}
                     <a href="{% url 'book_computer' %}" class="btn btn-primary">Забронировать компьютер</a>
                     <a href="{% url 'my_bookings' %}" class="btn btn-secondary">Мои бронирования</a>
+                     <a class="nav-link" href="{% url 'tournament_list' %}">Турниры</a>
                     <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
                     <form action="{% url 'logout' %}" method="post">{% csrf_token %}<button class="nav-link" type="submit">Выйти</button></form>
                 {% else %}

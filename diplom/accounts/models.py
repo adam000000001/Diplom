@@ -90,3 +90,53 @@ class Booking(models.Model):
     def can_be_canceled(self):
         return (self.start_time > timezone.now() and 
                 self.status in ['pending', 'confirmed'])
+    
+    # Tournament
+
+class Tournament(models.Model):
+    name = models.CharField(max_length=200, verbose_name='Название турнира')
+    game = models.CharField(max_length=100, verbose_name='Игра')
+    description = models.TextField(verbose_name='Описание')
+    start_date = models.DateTimeField(verbose_name='Дата и время начала')
+    end_date = models.DateTimeField(verbose_name='Дата и время окончания')
+    max_participants = models.PositiveIntegerField(verbose_name='Максимум участников')
+    prize_pool = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Призовой фонд')
+    rules = models.TextField(verbose_name='Правила турнира')
+    is_active = models.BooleanField(default=True, verbose_name='Активен')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.game})"
+
+    @property
+    def status(self):
+        now = timezone.now()
+        if now < self.start_date:
+            return 'upcoming'
+        elif self.start_date <= now <= self.end_date:
+            return 'ongoing'
+        else:
+            return 'finished'
+
+    @property
+    def registered_count(self):
+        return self.participants.count()
+
+    class Meta:
+        ordering = ['start_date']
+        verbose_name = 'Турнир'
+        verbose_name_plural = 'Турниры'
+
+class TournamentRegistration(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tournament_registrations')
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='participants')
+    registration_date = models.DateTimeField(auto_now_add=True)
+    is_confirmed = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('user', 'tournament')
+        verbose_name = 'Регистрация на турнир'
+        verbose_name_plural = 'Регистрации на турниры'
+
+    def __str__(self):
+        return f"{self.user.username} - {self.tournament.name}"

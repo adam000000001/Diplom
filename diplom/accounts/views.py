@@ -14,6 +14,11 @@ from .forms import BookingForm
 from .models import Booking, Computer
 from django.utils import timezone
 
+# tournament
+
+from .models import Tournament, TournamentRegistration
+from .forms import TournamentRegistrationForm
+
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -101,3 +106,54 @@ def cancel_booking(request, booking_id):
         messages.error(request, 'Невозможно отменить это бронирование')
     
     return redirect('my_bookings')
+
+    #tournament
+
+def tournament_list(request):
+    now = timezone.now()
+    upcoming = Tournament.objects.filter(start_date__gt=now, is_active=True).order_by('start_date')
+    ongoing = Tournament.objects.filter(start_date__lte=now, end_date__gte=now, is_active=True)
+    past = Tournament.objects.filter(end_date__lt=now, is_active=True).order_by('-start_date')[:10]
+    
+    context = {
+        'upcoming_tournaments': upcoming,
+        'ongoing_tournaments': ongoing,
+        'past_tournaments': past,
+    }
+    return render(request, 'accounts/tournament_list.html', context)
+
+@login_required
+def tournament_detail(request, pk):
+    tournament = get_object_or_404(Tournament, pk=pk)
+    is_registered = False
+    registration = None
+    
+    if request.user.is_authenticated:
+        registration = TournamentRegistration.objects.filter(
+            user=request.user,
+            tournament=tournament
+        ).first()
+        is_registered = registration is not None
+    
+    if request.method == 'POST':
+        if is_registered:
+            registration.delete()
+            messages.success(request, 'Вы отменили регистрацию на турнир')
+        else:
+            if tournament.registered_count < tournament.max_participants:
+                TournamentRegistration.objects.create(
+                    user=request.user,
+                    tournament=tournament
+                )
+                messages.success(request, 'Вы успешно зарегистрировались на турнир!')
+            else:
+                messages.error(request, 'К сожалению, все места заняты')
+        return redirect('tournament_detail', pk=pk)
+    
+    context = {
+        'tournament': tournament,
+        'is_registered': is_registered,
+        'registration': registration,
+        'available_spots': tournament.max_participants - tournament.registered_count,
+    }
+    return render(request, 'accounts/tournament_detail.html', context)

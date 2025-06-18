@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Расписание турниров</h1>
+    
+    {% if ongoing_tournaments %}
+    <h2 class="mb-3">Текущие турниры</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
+        {% for tournament in ongoing_tournaments %}
+        <div class="col">
+            <div class="card h-100 border-success">
+                <div class="card-header bg-success text-white">
+                    Идет сейчас
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ tournament.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ tournament.game }}</h6>
+                    <p class="card-text">{{ tournament.description|truncatechars:100 }}</p>
+                    <div class="d-flex justify-content-between">
+                        <span class="badge bg-primary">Призовой фонд: {{ tournament.prize_pool }} ₽</span>
+                        <span class="badge bg-secondary">Участников: {{ tournament.registered_count }}/{{ tournament.max_participants }}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'tournament_detail' tournament.id %}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <h2 class="mb-3">Предстоящие турниры</h2>
+    {% if upcoming_tournaments %}
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        {% for tournament in upcoming_tournaments %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ tournament.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ tournament.game }}</h6>
+                    <p class="card-text">{{ tournament.description|truncatechars:100 }}</p>
+                    <p class="card-text"><small class="text-muted">Начало: {{ tournament.start_date|date:"d.m.Y H:i" }}</small></p>
+                    <div class="d-flex justify-content-between">
+                        <span class="badge bg-primary">Приз: {{ tournament.prize_pool }} ₽</span>
+                        <span class="badge bg-secondary">Мест: {{ tournament.max_participants|add:tournament.registered_count|add:"-" }}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'tournament_detail' tournament.id %}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">В ближайшее время турниров не запланировано</div>
+    {% endif %}
+    
+    {% if past_tournaments %}
+    <h2 class="mb-3">Прошедшие турниры</h2>
+    <div class="list-group mb-5">
+        {% for tournament in past_tournaments %}
+        <a href="{% url 'tournament_detail' tournament.id %}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ tournament.name }}</h5>
+                <small>{{ tournament.end_date|date:"d.m.Y" }}</small>
+            </div>
+            <p class="mb-1">{{ tournament.game }}</p>
+            <small>Призовой фонд: {{ tournament.prize_pool }} ₽</small>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

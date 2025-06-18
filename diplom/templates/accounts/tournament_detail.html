@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h2>{{ tournament.name }}</h2>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ tournament.game }}</h4>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="badge bg-info text-dark">Начало: {{ tournament.start_date|date:"d.m.Y H:i" }}</span>
+                        <span class="badge bg-info text-dark">Окончание: {{ tournament.end_date|date:"d.m.Y H:i" }}</span>
+                    </div>
+                    <p class="card-text">{{ tournament.description }}</p>
+                    
+                    <h5 class="mt-4">Правила турнира:</h5>
+                    <p class="card-text">{{ tournament.rules|linebreaks }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-success">Призовой фонд: {{ tournament.prize_pool }} ₽</span>
+                            <span class="badge bg-warning text-dark ms-2">Участников: {{ tournament.registered_count }}/{{ tournament.max_participants }}</span>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <form method="post">
+                                {% csrf_token %}
+                                {% if is_registered %}
+                                    <button type="submit" class="btn btn-danger">Отменить регистрацию</button>
+                                {% else %}
+                                    {% if tournament.status == 'upcoming' %}
+                                        {% if tournament.registered_count < tournament.max_participants %}
+                                            <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+                                        {% else %}
+                                            <button class="btn btn-secondary" disabled>Мест нет</button>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            </form>
+                        {% else %}
+                            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">Войдите для регистрации</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Информация</h4>
+                </div>
+                <div class="card-body">
+                    <h5>Статус:</h5>
+                    <p>
+                        {% if tournament.status == 'upcoming' %}
+                            <span class="badge bg-primary">Предстоящий</span>
+                        {% elif tournament.status == 'ongoing' %}
+                            <span class="badge bg-success">Идет сейчас</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Завершен</span>
+                        {% endif %}
+                    </p>
+                    
+                    <h5 class="mt-3">Осталось мест:</h5>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: {{ tournament.registered_count|divisibleby:tournament.max_participants|multiply:100 }}%">
+                            {{ tournament.registered_count }}/{{ tournament.max_participants }}
+                        </div>
+                    </div>
+                    
+                    {% if tournament.status == 'upcoming' %}
+                    <div class="alert alert-info mt-3">
+                        Турнир начнется через {{ tournament.start_date|timeuntil }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
