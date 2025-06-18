@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -7,6 +7,12 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Row, Column
 
 from .models import ServicePackage
+
+#
+
+from .forms import BookingForm
+from .models import Booking, Computer
+from django.utils import timezone
 
 def register(request):
     if request.method == 'POST':
@@ -60,3 +66,38 @@ def home(request):
         'popular_packages': popular_packages
     }
     return render(request, 'home.html', context)
+
+#
+@login_required
+def book_computer(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.end_time = form.cleaned_data['end_time']
+            booking.save()
+            messages.success(request, 'Компьютер успешно забронирован!')
+            return redirect('my_bookings')
+    else:
+        form = BookingForm()
+    
+    return render(request, 'accounts/book_computer.html', {'form': form})
+
+@login_required
+def my_bookings(request):
+    bookings = Booking.objects.filter(user=request.user).order_by('-start_time')
+    return render(request, 'accounts/my_bookings.html', {'bookings': bookings})
+
+@login_required
+def cancel_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    if booking.start_time > timezone.now() and booking.status in ['pending', 'confirmed']:
+        booking.status = 'canceled'
+        booking.save()
+        messages.success(request, 'Бронирование отменено')
+    else:
+        messages.error(request, 'Невозможно отменить это бронирование')
+    
+    return redirect('my_bookings')

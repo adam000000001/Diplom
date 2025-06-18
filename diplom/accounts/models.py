@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True, verbose_name='О себе')
@@ -40,3 +43,50 @@ class ServicePackage(models.Model):
     class Meta:
         verbose_name = 'Пакет услуг'
         verbose_name_plural = 'Пакеты услуг'
+
+# Бронирование
+
+class Computer(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание', blank=True)
+    is_active = models.BooleanField(default=True, verbose_name='Активен')
+    specs = models.TextField(verbose_name='Характеристики', blank=True)
+    
+    def __str__(self):
+        return f"Компьютер #{self.id} - {self.name}"
+
+class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    computer = models.ForeignKey(Computer, on_delete=models.CASCADE, verbose_name='Компьютер')
+    start_time = models.DateTimeField(verbose_name='Время начала')
+    end_time = models.DateTimeField(verbose_name='Время окончания')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('pending', 'Ожидает'),
+            ('confirmed', 'Подтверждено'),
+            ('canceled', 'Отменено'),
+            ('completed', 'Завершено')
+        ],
+        default='pending',
+        verbose_name='Статус'
+    )
+    
+    class Meta:
+        ordering = ['start_time']
+        verbose_name = 'Бронирование'
+        verbose_name_plural = 'Бронирования'
+    
+    def __str__(self):
+        return f"Бронирование #{self.id} - {self.computer} ({self.start_time} - {self.end_time})"
+    
+    @property
+    def duration_hours(self):
+        duration = self.end_time - self.start_time
+        return round(duration.total_seconds() / 3600)
+    
+    @property
+    def can_be_canceled(self):
+        return (self.start_time > timezone.now() and 
+                self.status in ['pending', 'confirmed'])
