@@ -165,4 +165,20 @@ def tournament_detail(request, pk):
     }
     return render(request, 'accounts/tournament_detail.html', context)
 
+#
 
+def home_view(request):
+    # Получаем 3 популярных пакета
+    popular_packages = ServicePackage.objects.filter(
+        is_active=True, 
+        is_popular=True
+    )[:3]
+    
+    # Получаем все активные платформы
+    platforms = Platform.objects.all()
+    
+    context = {
+        'popular_packages': popular_packages,
+        'platforms': platforms,
+    }
+    return render(request, 'home.html', context)

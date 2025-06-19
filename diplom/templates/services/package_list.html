@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="packages-page">
+    <div class="container">
+        <h1>Пакеты услуг нашего клуба</h1>
+        
+        {% if popular_packages.exists %}
+        <section class="mb-5">
+            <h2>Популярные пакеты</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for package in popular_packages %}
+                <div class="col">
+                    <div class="card package-card popular-package h-100">
+                        <div class="card-header">
+                            <h3 class="h4 mb-0">{{ package.name }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ package.description }}</p>
+                            <ul class="list-unstyled mb-3">
+                                <li><strong>Длительность:</strong> {{ package.get_duration_display }}</li>
+                                <li><strong>Цена:</strong> {{ package.price }} руб.</li>
+                                <li class="mt-2">
+                                    {% for platform in package.platforms.all %}
+                                    <span class="badge platform-badge">
+                                        <i class="fas {{ platform.icon }}"></i>{{ platform.name }}
+                                    </span>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="{% url 'services:package_detail' package.id %}" class="btn package-btn">
+                                Выбрать пакет
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+        
+        <section>
+            <h2>Все пакеты</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for package in packages %}
+                <div class="col">
+                    <div class="card package-card h-100">
+                        <div class="card-header">
+                            <h3 class="h4 mb-0">{{ package.name }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ package.description }}</p>
+                            <ul class="list-unstyled mb-3">
+                                <li><strong>Длительность:</strong> {{ package.get_duration_display }}</li>
+                                <li><strong>Цена:</strong> {{ package.price }} руб.</li>
+                                <li class="mt-2">
+                                    {% for platform in package.platforms.all %}
+                                    <span class="badge platform-badge">
+                                        <i class="fas {{ platform.icon }}"></i>{{ platform.name }}
+                                    </span>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="{% url 'services:package_detail' package.id %}" class="btn package-btn package-btn-outline">
+                                Выбрать пакет
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

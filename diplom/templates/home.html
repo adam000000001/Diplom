@@ -34,53 +34,74 @@
     </div>
 </div>
 
-<div class="container py-5">
-    <h1 class="text-center mb-5">Пакеты услуг нашего клуба</h1>
-    
-    {% if packages %}
-        {% if popular_packages %}
-        <h2 class="mb-4">Популярные пакеты</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-            {% for package in popular_packages %}
-            <div class="col">
-                <div class="profile-card h-100">
-                    <div class="profile-header">
-                        <h3>{{ package.name }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>{{ package.description }}</p>
-                        <div class="d-grid">
-                            <button class="btn">Выбрать пакет</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+<!-- Секция пакетов услуг -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5">Наши тарифные планы</h2>
+            <p class="lead">Выберите оптимальный вариант для вашего отдыха</p>
         </div>
-        {% endif %}
         
-        <h2 class="mb-4">Все пакеты</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for package in packages %}
-            <div class="col">
-                <div class="profile-card h-100">
-                    <div class="profile-header">
-                        <h3>{{ package.name }}</h3>
+        <!-- Фильтр по платформам -->
+        <div class="text-center mb-4">
+            <div class="btn-group" role="group">
+                {% for platform in platforms %}
+                <button type="button" class="btn btn-outline-primary filter-btn" data-filter="{{ platform.id }}">
+                    <i class="fas {{ platform.icon }} me-1"></i>{{ platform.name }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Список пакетов -->
+        <div class="row g-4 package-container">
+            {% for package in popular_packages %}
+            <div class="col-md-4 package-item" data-platforms="{% for p in package.platforms.all %}{{ p.id }} {% endfor %}">
+                <div class="card h-100 shadow-sm {% if package.is_popular %}border-primary border-2{% endif %}">
+                    {% if package.is_popular %}
+                    <div class="position-absolute top-0 start-50 translate-middle badge bg-primary">
+                        Популярный
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-header bg-white">
+                        <h3 class="h4 text-center mb-0">{{ package.name }}</h3>
                     </div>
                     <div class="card-body">
-                        <p>{{ package.description }}</p>
-                        <div class="d-grid">
-                            <button class="btn">Выбрать пакет</button>
+                        <div class="text-center mb-4">
+                            <span class="display-4">{{ package.price }}</span>
+                            <span class="text-muted"> руб.</span>
+                            <div class="text-muted">{{ package.get_duration_display }}</div>
                         </div>
+                        
+                        <p class="card-text">{{ package.description|truncatewords:20 }}</p>
+                        
+                        <div class="mb-3">
+                            {% for platform in package.platforms.all %}
+                            <span class="badge bg-secondary me-1">
+                                <i class="fas {{ platform.icon }} me-1"></i>{{ platform.name }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 pb-3">
+                        <a href="{% url 'services:package_detail' package.id %}" 
+                           class="btn {% if package.is_popular %}btn-primary{% else %}btn-outline-primary{% endif %} w-100">
+                            Подробнее
+                        </a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-    {% else %}
-        <div class="alert alert-info">Пакеты услуг пока недоступны. Зайдите позже.</div>
-    {% endif %}
-</div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'services:package_list' %}" class="btn btn-primary px-4">
+                Все пакеты <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
 
 <div class="gaming-zones">
     <div class="container">
@@ -212,7 +233,36 @@
     </div>
 </section>
 
-
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const packageItems = document.querySelectorAll('.package-item');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Удаляем активный класс у всех кнопок
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Добавляем активный класс текущей кнопке
+            this.classList.add('active');
+            
+            const filterValue = this.getAttribute('data-filter');
+            
+            packageItems.forEach(item => {
+                if (filterValue === 'all') {
+                    item.style.display = 'block';
+                } else {
+                    const platforms = item.getAttribute('data-platforms').split(' ');
+                    if (platforms.includes(filterValue)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        });
+    });
+});
+</script>
 
 
 

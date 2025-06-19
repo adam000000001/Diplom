@@ -6,6 +6,7 @@ from .models import Computer, Booking
 
 from .models import Tournament, TournamentRegistration
 
+
 # Register your models here.
 
 @admin.register(ServicePackage)

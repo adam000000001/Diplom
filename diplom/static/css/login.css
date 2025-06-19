@@ -31,6 +31,7 @@
 
     .auth-card .card-body {
         padding: 2rem;
+        color: var(--bs-card-bg);
     }
 
     /* Стили для формы */

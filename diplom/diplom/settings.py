@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'contacts.apps.ContactsConfig',
     'reviews',
+    'services',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

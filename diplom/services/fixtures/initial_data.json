@@ -1,0 +1,26 @@
+[
+    {
+        "model": "services.platform",
+        "pk": 1,
+        "fields": {
+            "name": "ПК",
+            "icon": "fa-desktop"
+        }
+    },
+    {
+        "model": "services.platform",
+        "pk": 2,
+        "fields": {
+            "name": "PlayStation",
+            "icon": "fa-gamepad"
+        }
+    },
+    {
+        "model": "services.platform",
+        "pk": 3,
+        "fields": {
+            "name": "VR",
+            "icon": "fa-vr-cardboard"
+        }
+    }
+]

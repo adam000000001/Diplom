@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h4 mb-0">{{ package.name }}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="h5">Описание</h3>
+                            <p>{{ package.description }}</p>
+                            
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><strong>Длительность:</strong> {{ package.get_duration_display }}</li>
+                                <li class="mb-2"><strong>Цена:</strong> {{ package.price }} руб.</li>
+                                <li class="mb-2">
+                                    <strong>Доступные платформы:</strong>
+                                    <div class="mt-2">
+                                        {% for platform in package.platforms.all %}
+                                        <span class="badge bg-secondary me-1">
+                                            <i class="fas {{ platform.icon }} me-1"></i>{{ platform.name }}
+                                        </span>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="h5">Выберите платформу</h3>
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form.platform }}
+                                <button type="submit" class="btn btn-primary mt-3 w-100">
+                                    Продолжить к оплате
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
