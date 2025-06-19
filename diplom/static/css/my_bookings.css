@@ -1,0 +1,156 @@
+    /* Основные стили страницы */
+    .bookings-page {
+        background-color: #121212;
+        color: #fff;
+        padding: 3rem 0;
+    }
+
+    .bookings-page h2 {
+        color: #FF6B00;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .bookings-page h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: #FF6B00;
+    }
+
+    /* Кнопка нового бронирования */
+    .btn-new-booking {
+        background-color: #FF6B00;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-new-booking:hover {
+        background-color: #E05D00;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+    }
+
+    .btn-new-booking::before {
+        content: '+';
+        margin-right: 8px;
+        font-size: 1.2rem;
+    }
+
+    /* Таблица бронирований */
+    .booking-table {
+        background-color: #1E1E1E;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .booking-table thead {
+        background: linear-gradient(90deg, rgba(255,107,0,0.8) 0%, rgba(255,107,0,0.6) 100%);
+    }
+
+    .booking-table th {
+        color: #121212;
+        font-weight: 700;
+        padding: 1.2rem 1.5rem;
+        border: none;
+    }
+
+    .booking-table td {
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 107, 0, 0.1);
+        vertical-align: middle;
+        color: #333;
+    }
+
+    .booking-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .booking-table tbody tr:hover {
+        background-color: rgba(255, 107, 0, 0.05);
+    }
+
+    /* Статусы бронирований */
+    .status-active {
+        color: #4CAF50;
+        font-weight: 500;
+    }
+
+    .status-pending {
+        color: #FFC107;
+        font-weight: 500;
+    }
+
+    .status-canceled {
+        color: #F44336;
+        font-weight: 500;
+    }
+
+    .status-completed {
+        color: #9E9E9E;
+        font-weight: 500;
+    }
+
+    /* Кнопка отмены */
+    .btn-cancel {
+        background-color: transparent;
+        border: 1px solid #F44336;
+        color: #F44336;
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .btn-cancel:hover {
+        background-color: rgba(244, 67, 54, 0.1);
+        transform: translateY(-1px);
+    }
+
+    /* Сообщение об отсутствии бронирований */
+    .no-bookings {
+        color: #B0B0B0;
+        text-align: center;
+        padding: 2rem;
+        font-style: italic;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .booking-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+        }
+        
+        .booking-table th,
+        .booking-table td {
+            padding: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .btn-new-booking {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+        }
+        
+        .btn-cancel {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+        }
+    }

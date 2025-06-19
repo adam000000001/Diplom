@@ -2,30 +2,189 @@
 {% load static %}
 
 {% block content %}
+<div class="hero container">
+    <div class="hero--info">
+        <h2>Компьютерный клуб "ГеймЗона"</h2>
+        <h1>Лучшие игровые пакеты для наших клиентов</h1>
+        <p>Присоединяйтесь к нашему сообществу геймеров. У нас самые мощные компьютеры, профессиональное оборудование и уютная атмосфера для комфортной игры.</p>
+        <a href="{% url 'book_computer' %}" class="btn btn-primary">Забронировать компьютер</a>
+    </div>
+    <img src="{% static 'images/comp.png' %}" alt="Игровая зона">
+</div>
+
+<div class="container trending">
+    <h2 class="section-title">Популярные игры в нашем клубе</h2>
+    <div class="games">
+        <div class="block">
+            <img src="{% static 'images/Dota2.png' %}" alt="Dota 2">
+            <span><img src="{% static 'images/Fire.svg' %}" alt="">40 игроков</span>
+        </div>
+        <div class="block">
+            <img src="{% static 'images/cs.png' %}" alt="CS:GO">
+            <span><img src="{% static 'images/Fire.svg' %}" alt="">35 игроков</span>
+        </div>
+        <div class="block">
+            <img src="{% static 'images/pubg.png' %}" alt="PUBG">
+            <span><img src="{% static 'images/Fire.svg' %}" alt="">28 игроков</span>
+        </div>
+        <div class="block">
+            <img src="{% static 'images/fort.png' %}" alt="Fortnite">
+            <span><img src="{% static 'images/Fire.svg' %}" alt="">22 игрока</span>
+        </div>
+    </div>
+</div>
+
 <div class="container py-5">
     <h1 class="text-center mb-5">Пакеты услуг нашего клуба</h1>
     
-    <!-- Проверка наличия пакетов -->
     {% if packages %}
-        <!-- Популярные пакеты -->
         {% if popular_packages %}
         <h2 class="mb-4">Популярные пакеты</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
             {% for package in popular_packages %}
-            <!-- Карточка пакета -->
+            <div class="col">
+                <div class="profile-card h-100">
+                    <div class="profile-header">
+                        <h3>{{ package.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ package.description }}</p>
+                        <div class="d-grid">
+                            <button class="btn">Выбрать пакет</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         </div>
         {% endif %}
         
-        <!-- Все пакеты -->
         <h2 class="mb-4">Все пакеты</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for package in packages %}
-            <!-- Карточка пакета -->
+            <div class="col">
+                <div class="profile-card h-100">
+                    <div class="profile-header">
+                        <h3>{{ package.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ package.description }}</p>
+                        <div class="d-grid">
+                            <button class="btn">Выбрать пакет</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         </div>
     {% else %}
         <div class="alert alert-info">Пакеты услуг пока недоступны. Зайдите позже.</div>
     {% endif %}
 </div>
+
+<div class="gaming-zones">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">Наши игровые зоны</h2>
+            <p class="section-subtitle">Выберите удобную для вас платформу</p>
+        </div>
+        
+        <div class="zones-grid">
+            <div class="zone-card">
+                <div class="zone-icon">
+                    <img src="{% static 'images/Computer.png' %}" alt="Игровые ПК">
+                    <div class="icon-hover"></div>
+                </div>
+                <h3 class="zone-title">Игровые ПК</h3>
+                <p class="zone-desc">Мощные компьютеры с RTX 4090</p>
+                <div class="zone-hover">
+                </div>
+            </div>
+            
+            <div class="zone-card">
+                <div class="zone-icon">
+                    <img src="{% static 'images/ps4.png' %}" alt="PlayStation 5">
+                    <div class="icon-hover"></div>
+                </div>
+                <h3 class="zone-title">PlayStation 5</h3>
+                <p class="zone-desc">4K HDR и 120 FPS</p>
+                <div class="zone-hover">
+                </div>
+            </div>
+            
+            <div class="zone-card">
+                <div class="zone-icon">
+                    <img src="{% static 'images/VR.png' %}" alt="VR Зона">
+                    <div class="icon-hover"></div>
+                </div>
+                <h3 class="zone-title">VR Зона</h3>
+                <p class="zone-desc">Valve Index и Oculus Quest 2</p>
+                <div class="zone-hover">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="gallery-section container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="section-title">Галерея нашего клуба</h2>
+    </div>
+    
+    <div class="gallery-grid">
+        <div class="gallery-item main-photo">
+            <img src="{% static 'images/Rectangle 15.png' %}" alt="Главная зона клуба" class="img-fluid">
+            <div class="photo-overlay">
+                <h3>Игровая зона премиум-класса</h3>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="{% static 'images/Rectangle 16.png' %}" alt="Турнирная зона" class="img-fluid">
+            <div class="photo-overlay">
+                <p>Турниры по киберспорту</p>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="{% static 'images/Rectangle 17.png' %}" alt="VR зона" class="img-fluid">
+            <div class="photo-overlay">
+                <p>VR оборудование</p>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="{% static 'images/Rectangle 18.png' %}" alt="Комфортная зона" class="img-fluid">
+            <div class="photo-overlay">
+                <p>Зона отдыха</p>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="{% static 'images/Rectangle 19.png' %}" alt="PlayStation" class="img-fluid">
+            <div class="photo-overlay">
+                <p>Консольная зона</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container email">
+    <h3>Оставаться на связи</h3>
+    <p>Подпишитесь, чтобы получать последние новости и обновления о нашем клубе</p>
+    <div class="block">
+        <div>
+            <h4>Будьте в курсе</h4>
+            <p>Мы обещаем не спамить!</p>
+        </div>
+        <div>
+            <input type="email" id="emailField" placeholder="Введите email">
+            <button class="btn">Подписаться</button>
+        </div>
+    </div>
+</div>
+
+
+
+
 {% endblock %}

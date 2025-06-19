@@ -140,3 +140,15 @@ class TournamentRegistration(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.tournament.name}"
+    
+    #Notification
+    
+class TournamentNotification(models.Model):
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sent_email = models.BooleanField(default=False)
+    sent_browser = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('tournament', 'user')

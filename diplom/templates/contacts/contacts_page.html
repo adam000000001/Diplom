@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="contacts-page">
+    <div class="container">
+        <h1>Контакты</h1>
+        
+               <!-- Блок 3: Карта -->
+        <div class="contact-block map-block">
+            {% if contact.map_embed_code %}
+            {{ contact.map_embed_code|safe }}
+            {% else %}
+            <div class="no-map">
+                <p>Карта не загружена</p>
+            </div>
+            {% endif %}
+        </div>
+       
+        <!-- Блок 1: Контактная информация -->
+<div class="contact-block contact-info">
+    <h2 class="block-title">{{ contact.club_name }}</h2>
+    
+    <div class="contact-item">
+        <h3>Адрес</h3>
+        <p>{{ contact.address }}</p>
+    </div>
+    
+    <div class="contact-item">
+        <h3>Телефон</h3>
+        <p><a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></p>
+    </div>
+    
+    <div class="contact-item">
+        <h3>Email</h3>
+        <p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+    </div>
+    
+    <div class="contact-item">
+        <h3>Часы работы</h3>
+        <p>{{ contact.opening_hours }}</p>
+    </div>
+</div>
+        
+        <!-- Блок 2: Социальные сети -->
+        {% if contact.social_facebook or contact.social_vk or contact.social_telegram or contact.social_instagram %}
+        <div class="contact-block">
+            <h2 class="block-title">Мы в соцсетях</h2>
+            <div class="social-links">
+                {% if contact.social_facebook %}
+                <a href="{{ contact.social_facebook }}" target="_blank" class="btn-social">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                {% endif %}
+                {% if contact.social_vk %}
+                <a href="{{ contact.social_vk }}" target="_blank" class="btn-social">
+                    <i class="fab fa-vk"></i> ВКонтакте
+                </a>
+                {% endif %}
+                {% if contact.social_telegram %}
+                <a href="{{ contact.social_telegram }}" target="_blank" class="btn-social">
+                    <i class="fab fa-telegram-plane"></i> Telegram
+                </a>
+                {% endif %}
+                {% if contact.social_instagram %}
+                <a href="{{ contact.social_instagram }}" target="_blank" class="btn-social">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        
+
+        
+        <!-- Блок 4: Форма обратной связи -->
+        <div class="contact-block feedback-form">
+            <h2 class="block-title">Форма обратной связи</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="email" class="form-control" placeholder="Ваш email" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" placeholder="Тема сообщения" required>
+                    </div>
+                    <div class="col-12">
+                        <textarea class="form-control" rows="5" placeholder="Ваше сообщение" required></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-submit">Отправить сообщение</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

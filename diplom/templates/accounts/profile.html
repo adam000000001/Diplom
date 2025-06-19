@@ -1,29 +1,47 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body text-center">
-                    <img class="rounded-circle account-img" src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}/static/default_avatar.png{% endif %}" width="150" height="150">
+<div class="profile-container">
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="profile-card h-100">
+                <div class="profile-header text-center">
+                    <img class="rounded-circle account-img" src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}">
                     <h2 class="account-heading mt-3">{{ user.username }}</h2>
-                    <p class="text-secondary">{{ user.email }}</p>
+                    <p class="text-secondary mb-0">{{ user.email }}</p>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid">
+                        <a href="{% url 'my_bookings' %}" class="btn btn-secondary">Мои бронирования</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Информация профиля</h3>
+        
+        <div class="col-lg-8">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <h3 class="mb-0"><i class="fas fa-user-cog me-2"></i>Настройки профиля</h3>
                 </div>
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ u_form|crispy }}
-                        {{ p_form|crispy }}
-                        <button type="submit" class="btn btn-primary mt-3">Обновить</button>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                {{ u_form.username|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ u_form.email|as_crispy_field }}
+                            </div>
+                            <div class="col-12">
+                                {{ p_form.avatar|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-primary px-4">Сохранить изменения</button>
+                        </div>
                     </form>
                 </div>
             </div>

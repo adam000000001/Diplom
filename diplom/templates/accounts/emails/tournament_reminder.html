@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Напоминание о турнире</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #4a6ea9;">Привет, {{ user.username }}!</h2>
+        <p>Это напоминание о том, что турнир <strong>{{ tournament.name }}</strong> по игре <strong>{{ tournament.game }}</strong> начнется скоро:</p>
+        
+        <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p><strong>Дата и время начала:</strong> {{ tournament.start_date|date:"d.m.Y H:i" }}</p>
+            <p><strong>Место проведения:</strong> Наш компьютерный клуб</p>
+        </div>
+        
+        <p>Пожалуйста, не опаздывайте! Рекомендуем прийти за 15-30 минут до начала.</p>
+        
+        <p>Вы можете посмотреть подробности турнира на нашем сайте:</p>
+        <a href="{{ protocol }}://{{ domain }}{% url 'tournament_detail' tournament.id %}" 
+           style="display: inline-block; padding: 10px 20px; background-color: #4a6ea9; color: white; text-decoration: none; border-radius: 5px;">
+            Перейти к турниру
+        </a>
+        
+        <p style="margin-top: 30px;">С уважением,<br>Команда компьютерного клуба</p>
+    </div>
+</body>
+</html>

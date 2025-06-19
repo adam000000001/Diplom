@@ -134,6 +134,12 @@ def tournament_detail(request, pk):
             tournament=tournament
         ).first()
         is_registered = registration is not None
+
+           # Вычисляем процент заполненности
+    if tournament.max_participants > 0:
+        percentage = (tournament.registered_count / tournament.max_participants) * 100
+    else:
+        percentage = 0
     
     if request.method == 'POST':
         if is_registered:
@@ -155,5 +161,6 @@ def tournament_detail(request, pk):
         'is_registered': is_registered,
         'registration': registration,
         'available_spots': tournament.max_participants - tournament.registered_count,
+         'registration_percentage': percentage,
     }
     return render(request, 'accounts/tournament_detail.html', context)

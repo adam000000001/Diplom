@@ -1,0 +1,209 @@
+    /* Основные стили страницы */
+    .contacts-page {
+        background-color: #121212;
+        color: #fff;
+        padding: 3rem 0;
+    }
+
+    .contacts-page h1 {
+        color: #FF6B00;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .contacts-page h1::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 60px;
+        height: 3px;
+        background-color: #FF6B00;
+    }
+
+    /* Общие стили для блоков */
+    .contact-block {
+        background-color: #1E1E1E;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease;
+    }
+
+    .contact-block:hover {
+        transform: translateY(-5px);
+    }
+
+    .contact-block .block-title {
+        color: #FF6B00;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+        /* Стили для контактной информации */
+    .contact-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .contact-info .block-title {
+        grid-column: 1 / -1;
+        color: #FF6B00;
+        font-weight: 600;
+        margin-bottom: 0;
+        font-size: 1.5rem;
+    }
+
+    .contact-item {
+        background: rgba(255, 107, 0, 0.05);
+        border-left: 3px solid #FF6B00;
+        padding: 1rem 1.5rem;
+        border-radius: 0 8px 8px 0;
+        transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+        background: rgba(255, 107, 0, 0.1);
+        transform: translateX(5px);
+    }
+
+    .contact-item h3 {
+        color: #FF6B00;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .contact-item p,
+    .contact-item a {
+        color: #D0D0D0;
+        margin-bottom: 0;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .contact-item a {
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .contact-item a:hover {
+        color: #FF6B00;
+        text-decoration: underline;
+    }
+
+    /* Блок социальных сетей */
+    .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .btn-social {
+        background-color: transparent;
+        border: 1px solid #FF6B00;
+        color: #FF6B00;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .btn-social i {
+        margin-right: 8px;
+    }
+
+    .btn-social:hover {
+        background-color: rgba(255, 107, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    /* Блок карты */
+    .map-block {
+        padding: 0;
+        height: 400px;
+    }
+
+    .map-block iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 12px;
+    }
+
+    .no-map {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: #B0B0B0;
+    }
+
+    /* Блок формы обратной связи */
+    .feedback-form .form-control {
+        background-color: #2A2A2A;
+        border: 1px solid #333;
+        color: #F0F0F0;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+    }
+
+    .feedback-form .form-control::placeholder {
+        color: #B0B0B0;
+    }
+
+    .feedback-form .form-control:focus {
+        background-color: #2A2A2A;
+        border-color: #FF6B00;
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+        color: #F0F0F0;
+    }
+
+    textarea.form-control {
+        min-height: 150px;
+    }
+
+    .btn-submit {
+        background-color: #FF6B00;
+        border: none;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #E05D00;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .contact-block {
+            padding: 1.5rem;
+        }
+        
+        .social-links {
+            flex-direction: column;
+        }
+        
+        .btn-social {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .map-block {
+            height: 300px;
+        }
+    }

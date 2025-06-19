@@ -1,0 +1,182 @@
+    /* Основные стили страницы */
+    .register-page {
+        background-color: #121212;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 2rem 0;
+        background-image: radial-gradient(circle at 75% 50%, rgba(255,107,0,0.1) 0%, transparent 30%);
+    }
+
+    .register-card {
+        background-color: #1E1E1E;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .register-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(255,107,0,0.2);
+    }
+
+    .register-card .card-header {
+        background: linear-gradient(90deg, rgba(255,107,0,0.9) 0%, rgba(255,107,0,0.7) 100%);
+        color: white;
+        text-align: center;
+        padding: 1.5rem;
+        border-bottom: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .register-card .card-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        transform: rotate(45deg);
+    }
+
+    .register-card .card-header h3 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 1.8rem;
+        position: relative;
+    }
+
+    .register-card .card-body {
+        padding: 2.5rem;
+    }
+
+    /* Стили для формы */
+    .register-form .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .register-form .form-control {
+        background-color: #2A2A2A;
+        border: 1px solid #333;
+        color: white;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .register-form .form-control:focus {
+        background-color: #2A2A2A;
+        border-color: #FF6B00;
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+        color: white;
+    }
+
+    .register-form label {
+        color: #B0B0B0;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        display: block;
+    }
+
+    /* Кнопка регистрации */
+    .register-btn {
+        background-color: #FF6B00;
+        border: none;
+        width: 100%;
+        padding: 0.85rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-top: 1.5rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .register-btn::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        transform: rotate(45deg);
+        transition: all 0.5s ease;
+        opacity: 0;
+    }
+
+    .register-btn:hover {
+        background-color: #E05D00;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+    }
+
+    .register-btn:hover::after {
+        opacity: 1;
+        top: -20%;
+        left: -20%;
+    }
+
+    /* Дополнительные ссылки */
+    .register-links {
+        margin-top: 2rem;
+        text-align: center;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 107, 0, 0.1);
+    }
+
+    .register-links p {
+        color: #B0B0B0;
+        margin-bottom: 0;
+        font-size: 0.95rem;
+    }
+
+    .register-links a {
+        color: #FF6B00;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+
+    .register-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #FF6B00;
+        transition: width 0.3s ease;
+    }
+
+    .register-links a:hover {
+        color: #FF8B33;
+    }
+
+    .register-links a:hover::after {
+        width: 100%;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .register-card .card-body {
+            padding: 1.75rem;
+        }
+        
+        .register-card .card-header h3 {
+            font-size: 1.5rem;
+        }
+        
+        .register-btn {
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+    }

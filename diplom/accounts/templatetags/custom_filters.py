@@ -2,7 +2,7 @@ from django import template
 
 register = template.Library()
 
-@register.filter
+@register.filter(name='multiply')
 def divisibleby(value, arg):
     try:
         return int(value) / int(arg) * 100

@@ -1,0 +1,153 @@
+    /* Основные стили страницы */
+    .booking-page {
+        background-color: #121212;
+        min-height: 100vh;
+        padding: 3rem 0;
+        background-image: radial-gradient(circle at 25% 70%, rgba(255,107,0,0.08) 0%, transparent 40%);
+    }
+
+    .booking-card {
+        background-color: #1E1E1E;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+    }
+
+    .booking-card .card-header {
+        background: linear-gradient(90deg, rgba(255,107,0,0.9) 0%, rgba(255,107,0,0.7) 100%);
+        color: white;
+        padding: 1.5rem;
+        border-bottom: none;
+        position: relative;
+    }
+
+    .booking-card .card-header h3 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 1.8rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .booking-card .card-header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 100%;
+        background: url('{% static "images/pc-icon.png" %}') no-repeat right center;
+        background-size: contain;
+        opacity: 0.1;
+    }
+
+    .booking-card .card-body {
+        padding: 2.5rem;
+    }
+
+    /* Стили формы */
+    .booking-form .form-group {
+        margin-bottom: 1.8rem;
+    }
+
+    .booking-form label {
+        color: #B0B0B0;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .booking-form .form-control,
+    .booking-form .form-select {
+        background-color: #2A2A2A;
+        border: 1px solid #333;
+        color: white;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .booking-form .form-control:focus,
+    .booking-form .form-select:focus {
+        background-color: #2A2A2A;
+        border-color: #FF6B00;
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+        color: white;
+    }
+
+    /* Календарь/время */
+    .booking-form input[type="datetime-local"] {
+        position: relative;
+    }
+
+    .booking-form input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        opacity: 0.7;
+        cursor: pointer;
+    }
+
+    /* Кнопки */
+    .btn-booking {
+        background-color: #FF6B00;
+        border: none;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-right: 1rem;
+        min-width: 180px;
+    }
+
+    .btn-booking:hover {
+        background-color: #E05D00;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+    }
+
+    .btn-back {
+        background-color: #2A2A2A;
+        border: 1px solid #FF6B00;
+        color: #FF6B00;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        min-width: 180px;
+    }
+
+    .btn-back:hover {
+        background-color: rgba(255, 107, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2.5rem;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .booking-card .card-body {
+            padding: 1.75rem;
+        }
+        
+        .booking-card .card-header h3 {
+            font-size: 1.5rem;
+        }
+        
+        .button-group {
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .btn-booking,
+        .btn-back {
+            width: 100%;
+            margin-right: 0;
+        }
+    }

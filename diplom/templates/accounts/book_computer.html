@@ -2,20 +2,24 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Бронирование компьютера</h3>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <button type="submit" class="btn btn-primary mt-3">Забронировать</button>
-                        <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Назад</a>
-                    </form>
+<div class="booking-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="booking-card card">
+                    <div class="card-header">
+                        <h3>Бронирование компьютера</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" class="booking-form">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <div class="button-group">
+                                <button type="submit" class="btn btn-booking">Забронировать</button>
+                                <a href="{% url 'home' %}" class="btn btn-back">Назад</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

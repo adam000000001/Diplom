@@ -1,0 +1,104 @@
+    /* Основные стили страницы */
+    .auth-page {
+        background-color: #121212;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 2rem 0;
+    }
+
+    .auth-card {
+        background-color: #1E1E1E;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+    }
+
+    .auth-card .card-header {
+        background: linear-gradient(90deg, rgba(255,107,0,0.8) 0%, rgba(255,107,0,0.6) 100%);
+        color: white;
+        text-align: center;
+        padding: 1.5rem;
+        border-bottom: none;
+    }
+
+    .auth-card .card-header h3 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 1.8rem;
+    }
+
+    .auth-card .card-body {
+        padding: 2rem;
+    }
+
+    /* Стили для формы */
+    .auth-form .form-control {
+        background-color: #2A2A2A;
+        border: 1px solid #333;
+        color: white;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+    }
+
+    .auth-form .form-control:focus {
+        background-color: #2A2A2A;
+        border-color: #FF6B00;
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+        color: white;
+    }
+
+    .auth-form label {
+        color: #B0B0B0;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Кнопка входа */
+    .auth-btn {
+        background-color: #FF6B00;
+        border: none;
+        width: 100%;
+        padding: 0.75rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+    }
+
+    .auth-btn:hover {
+        background-color: #E05D00;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+    }
+
+    /* Дополнительные ссылки */
+    .auth-links {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+
+    .auth-links p {
+        color: #B0B0B0;
+        margin-bottom: 0.5rem;
+    }
+
+    .auth-links a {
+        color: #FF6B00;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .auth-links a:hover {
+        color: #FF8B33;
+        text-decoration: underline;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .auth-card .card-body {
+            padding: 1.5rem;
+        }
+    }

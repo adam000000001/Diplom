@@ -1,0 +1,116 @@
+  /* Стили для галереи */
+    .gallery-section {
+        padding: 2rem 0;
+    }
+    
+    .section-title {
+        color: #FF6B00;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 3px;
+        background-color: #FF6B00;
+    }
+    
+    .see-all {
+        color: #FF6B00;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .see-all:hover {
+        color: #E05D00;
+        text-decoration: underline;
+    }
+    
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(200px, auto);
+        gap: 15px;
+    }
+    
+    .gallery-item {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(255, 107, 0, 0.2);
+    }
+    
+    .gallery-item.main-photo {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+    
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+    
+    .photo-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        padding: 20px;
+        color: white;
+    }
+    
+    .photo-overlay h3 {
+        margin: 0;
+        font-size: 1.3rem;
+    }
+    
+    .photo-overlay p {
+        margin: 5px 0 0;
+        font-size: 0.9rem;
+    }
+    
+    @media (max-width: 992px) {
+        .gallery-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .gallery-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .gallery-item.main-photo {
+            grid-column: span 2;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .gallery-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .gallery-item.main-photo {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+    }
