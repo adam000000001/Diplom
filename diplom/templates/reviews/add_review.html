@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="reviews-container">
+    <h1 class="reviews-title">Оставить отзыв</h1>
+    
+    <form method="post" class="reviews-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
+            {{ form.rating }}
+            {% if form.rating.errors %}
+                <div class="error-message">
+                    {{ form.rating.errors }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
+            {{ form.comment }}
+            {% if form.comment.errors %}
+                <div class="error-message">
+                    {{ form.comment.errors }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="submit-btn">Отправить</button>
+            <a href="{% url 'reviews:list' %}" class="cancel-btn">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

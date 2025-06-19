@@ -164,3 +164,5 @@ def tournament_detail(request, pk):
          'registration_percentage': percentage,
     }
     return render(request, 'accounts/tournament_detail.html', context)
+
+

@@ -1,0 +1,207 @@
+    /* Стили для раздела отзывов */
+    .reviews-section {
+        background-color: #121212;
+        color: #fff;
+        padding: 4rem 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .reviews-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -20%;
+        width: 140%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 60%);
+        z-index: 0;
+    }
+
+    .reviews-section h2 {
+        color: #FF6B00;
+        font-weight: 700;
+        font-size: 2.2rem;
+        position: relative;
+        margin-bottom: 3rem !important;
+    }
+
+    .reviews-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: #FF6B00;
+    }
+
+    /* Карточки отзывов */
+    .reviews-section .card {
+        background-color: #1E1E1E;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+        height: 100%;
+    }
+
+    .reviews-section .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 30px rgba(255, 107, 0, 0.2);
+    }
+
+    .reviews-section .card-body {
+        padding: 1.8rem;
+    }
+
+    .reviews-section .card-title {
+        color: #FF6B00;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+
+    .reviews-section .card-text {
+        color: #D0D0D0;
+        line-height: 1.6;
+        margin-top: 1rem;
+    }
+
+    .reviews-section .card-footer {
+        background-color: rgba(255, 107, 0, 0.05);
+        border-top: 1px solid rgba(255, 107, 0, 0.1);
+        padding: 0.75rem 1.8rem;
+        border-radius: 0 0 12px 12px;
+    }
+
+    /* Звезды рейтинга */
+    .text-warning {
+        color: #FF6B00 !important;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+    }
+
+    /* Кнопка отзыва */
+    .btn-review {
+        background-color: #FF6B00;
+        border: none;
+        padding: 0.8rem 2.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .btn-review:hover {
+        background-color: #E05D00;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+    }
+
+    /* Секция подписки */
+    .email-section {
+        background-color: #1E1E1E;
+        padding: 3rem 0;
+        margin-top: -1px;
+    }
+
+    .email-section h3 {
+        color: #FF6B00;
+        font-weight: 700;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .email-section p {
+        color: #B0B0B0;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+    }
+
+    .email-block {
+        background-color: #121212;
+        border-radius: 12px;
+        padding: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .email-info h4 {
+        color: #FFFFFF;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .email-info p {
+        color: #B0B0B0;
+        margin-bottom: 0;
+    }
+
+    .email-form {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .email-form input {
+        background-color: #2A2A2A;
+        border: 1px solid #333;
+        color: #FFFFFF;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        min-width: 250px;
+        flex-grow: 1;
+    }
+
+    .email-form input::placeholder {
+        color: #B0B0B0;
+    }
+
+    .email-form button {
+        background-color: #FF6B00;
+        border: none;
+        color: white;
+        padding: 0.75rem 1.75rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .email-form button:hover {
+        background-color: #E05D00;
+        transform: translateY(-2px);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .reviews-section {
+            padding: 3rem 0;
+        }
+        
+        .email-block {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .email-form {
+            width: 100%;
+        }
+        
+        .email-form input {
+            width: 100%;
+        }
+        
+        .email-form button {
+            width: 100%;
+        }
+    }

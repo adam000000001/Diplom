@@ -126,6 +126,49 @@
     </div>
 </div>
 
+<section class="reviews-section">
+    <div class="container">
+        <h2 class="text-center">Отзывы наших клиентов</h2>
+        
+        <!-- Список отзывов -->
+        <div class="row">
+            {% for review in latest_reviews %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="card-title">{{ review.user.username }}</h5>
+                            <div class="text-warning">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= review.rating %}
+                                        ★
+                                    {% else %}
+                                        ☆
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <p class="card-text">{{ review.comment|truncatechars:150 }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Кнопка "Оставить отзыв" -->
+        <div class="text-center mt-4">
+            {% if user.is_authenticated %}
+                <a href="{% url 'reviews:add' %}" class="btn btn-review">Посмотреть Отзывы</a>
+            {% else %}
+                <a href="{% url 'login' %}?next={% url 'reviews:add' %}" class="btn btn-review">Войдите, чтобы оставить отзыв</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
 <section class="gallery-section container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="section-title">Галерея нашего клуба</h2>
@@ -169,20 +212,7 @@
     </div>
 </section>
 
-<div class="container email">
-    <h3>Оставаться на связи</h3>
-    <p>Подпишитесь, чтобы получать последние новости и обновления о нашем клубе</p>
-    <div class="block">
-        <div>
-            <h4>Будьте в курсе</h4>
-            <p>Мы обещаем не спамить!</p>
-        </div>
-        <div>
-            <input type="email" id="emailField" placeholder="Введите email">
-            <button class="btn">Подписаться</button>
-        </div>
-    </div>
-</div>
+
 
 
 
